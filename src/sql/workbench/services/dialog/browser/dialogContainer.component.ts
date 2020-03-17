@@ -27,9 +27,9 @@ export interface DialogComponentParams extends IBootstrapParams {
 	providers: [],
 	template: `
 		<div class="dialogContainer" *ngIf="_dialogPane && _dialogPane.displayPageTitle">
-			<div class="dialogModal-wizardHeader" *ngIf="_dialogPane && _dialogPane.displayPageTitle">
-				<h1 *ngIf="_dialogPane.pageNumber" class="wizardPageNumber">Step {{_dialogPane.pageNumber}}</h1>
-				<h1 class="wizardPageTitle" role="alert">{{_dialogPane.title}}</h1>
+			<div class="dialogModal-wizardHeader" role="region" aria-live="polite" *ngIf="_dialogPane && _dialogPane.displayPageTitle">
+				<h1 *ngIf="_dialogPane.pageNumber" class="wizardPageNumber" #wizardPageNumber>Step {{_dialogPane.pageNumber}}</h1>
+				<h1 class="wizardPageTitle">{{_dialogPane.title}}</h1>
 				<div *ngIf="_dialogPane.description">{{_dialogPane.description}}</div>
 			</div>
 			<div style="flex: 1 1 auto; position: relative;">
@@ -48,6 +48,7 @@ export class DialogContainer implements AfterViewInit {
 
 	public modelViewId: string;
 	@ViewChild(ModelViewContent) private _modelViewContent: ModelViewContent;
+	@ViewChild('wizardPageNumber', { read: ElementRef }) private _wizardPageNumber: ElementRef;
 	constructor(
 		@Inject(forwardRef(() => ElementRef)) private _el: ElementRef,
 		@Inject(IBootstrapParams) private _params: DialogComponentParams) {
@@ -73,5 +74,6 @@ export class DialogContainer implements AfterViewInit {
 
 	public layout(): void {
 		this._modelViewContent.layout();
+		(<HTMLElement>this._wizardPageNumber.nativeElement).innerText = `Step ${this._dialogPane.pageNumber}`;
 	}
 }

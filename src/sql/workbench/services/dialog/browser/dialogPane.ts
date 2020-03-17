@@ -135,6 +135,8 @@ export class DialogPane extends Disposable implements IThemable {
 		if (focus) {
 			this.focus();
 		}
+		this.pageNumber += 1;
+		this.layout(true);
 	}
 
 	public hide(): void {
