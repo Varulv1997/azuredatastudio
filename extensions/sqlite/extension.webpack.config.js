@@ -12,7 +12,7 @@ const withDefaults = require('../shared.webpack.config');
 module.exports = withDefaults({
 	context: __dirname,
 	externals: {
-		sqlite: 'commonjs sqlite'
+		sqlite3: 'commonjs sqlite3'
 	},
 	entry: {
 		main: './src/index.ts'

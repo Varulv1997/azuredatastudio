@@ -24,7 +24,7 @@ export class ConnectionProvider implements azdata.ConnectionProvider {
 					if (err) {
 						this.connectionComplete({ connectionId: connectionUri, ownerUri: connectionUri, errorMessage: err.message } as any);
 					} else {
-						this.connectionComplete({ connectionId: connectionUri, ownerUri: connectionUri, serverInfo: {} as any, connectionSummary: { serverName: connectionInfo.options['file'], databaseName: connectionInfo.options['file'], userName: 'N/A' } } as any);
+						this.connectionComplete({ connectionId: connectionUri, ownerUri: connectionUri, connectionSummary: { serverName: connectionInfo.options['file'], databaseName: connectionInfo.options['file'], userName: 'N/A' } } as any);
 					}
 				}
 			});
@@ -37,6 +37,7 @@ export class ConnectionProvider implements azdata.ConnectionProvider {
 	async disconnect(connectionUri: string): Promise<boolean> {
 		if (this.databases[connectionUri]) {
 			this.databases[connectionUri].close();
+			delete this.databases[connectionUri];
 		}
 		return true;
 	}
