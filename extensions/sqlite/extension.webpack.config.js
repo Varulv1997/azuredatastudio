@@ -11,6 +11,9 @@ const withDefaults = require('../shared.webpack.config');
 
 module.exports = withDefaults({
 	context: __dirname,
+	externals: {
+		sqlite: 'commonjs sqlite'
+	},
 	entry: {
 		main: './src/main.ts'
 	}

@@ -15,6 +15,6 @@ module.exports = withDefaults({
 		main: './src/main.ts'
 	},
 	externals: {
-		kerberos: "commonjs kerberos"
+		kerberos: 'commonjs kerberos'
 	}
 });

@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "activationEvents": ["*"],
+  "activationEvents": ["onConnect:sqlite"],
   "author": "anthonydresser",
   "license": "ISC",
   "devDependencies": {
@@ -32,7 +32,7 @@
     ],
     "connectionProvider": {
       "providerId": "sqlite",
-      "displayName": "%provider.displayName%",
+      "displayName": "Sqlite",
       "connectionOptions": [
         {
           "specialValueType": "serverName",
