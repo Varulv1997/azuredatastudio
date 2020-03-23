@@ -60,7 +60,7 @@ export class QueryProvider implements azdata.QueryProvider {
 	}
 
 	async getQueryRows(rowData: azdata.QueryExecuteSubsetParams): Promise<azdata.QueryExecuteSubsetResult> {
-		return { resultSubset: { rowCount: rowData.rowsCount, rows: this.results[rowData.ownerUri].map(v => Object.values(v).map(c => ({ displayValue: String(c), isNull: c === null }))) } };
+		return { resultSubset: { rowCount: rowData.rowsCount, rows: this.results[rowData.ownerUri].map(v => Object.values(v).map(c => ({ displayValue: String(c), isNull: c === null }))) } } as any;
 	}
 
 	disposeQuery(ownerUri: string): Thenable<void> {

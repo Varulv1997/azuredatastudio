@@ -22,9 +22,9 @@ export class ConnectionProvider implements azdata.ConnectionProvider {
 			this.databases[connectionUri] = new sqlite.Database(file, (err) => {
 				if (this.connectionComplete) {
 					if (err) {
-						this.connectionComplete({ connectionId: connectionUri, ownerUri: connectionUri, errorMessage: err.message });
+						this.connectionComplete({ connectionId: connectionUri, ownerUri: connectionUri, errorMessage: err.message } as any);
 					} else {
-						this.connectionComplete({ connectionId: connectionUri, ownerUri: connectionUri, serverInfo: {} as any, connectionSummary: { serverName: connectionInfo.options['file'], databaseName: connectionInfo.options['file'], userName: 'N/A' } });
+						this.connectionComplete({ connectionId: connectionUri, ownerUri: connectionUri, serverInfo: {} as any, connectionSummary: { serverName: connectionInfo.options['file'], databaseName: connectionInfo.options['file'], userName: 'N/A' } } as any);
 					}
 				}
 			});
