@@ -1,259 +1,259 @@
 {
-  "name": "azurecore",
-  "displayName": "%azure.displayName%",
-  "description": "%azure.description%",
-  "version": "0.1.0",
-  "publisher": "Microsoft",
-  "preview": true,
-  "engines": {
-    "vscode": "^1.30.1",
-    "azdata": "*"
-  },
-  "activationEvents": [
-    "*"
-  ],
-  "enableProposedApi": true,
-  "main": "./out/extension",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Microsoft/azuredatastudio.git"
-  },
-  "contributes": {
-    "configuration": [
-      {
-        "type": "object",
-        "title": "%azure.resource.config.title%",
-        "properties": {
-          "azure.resource.config.filter": {
-            "type": "array",
-            "default": null,
-            "description": "%azure.resource.config.filter.description%"
-          }
-        }
-      },
-      {
-        "type": "object",
-        "title": "%config.azureAccountConfigurationSection%",
-        "properties": {
-          "accounts.azure.cloud.enablePublicCloud": {
-            "type": "boolean",
-            "default": true,
-            "description": "%config.enablePublicCloudDescription%"
-          },
-          "accounts.azure.cloud.enableUsGovCloud": {
-            "type": "boolean",
-            "default": false,
-            "description": "%config.enableUsGovCloudDescription%"
-          },
-          "accounts.azure.cloud.enableGermanyCloud": {
-            "type": "boolean",
-            "default": false,
-            "description": "%config.enableGermanyCloudDescription%"
-          },
-          "accounts.azure.cloud.enableChinaCloud": {
-            "type": "boolean",
-            "default": false,
-            "description": "%config.enableChinaCloudDescription%"
-          }
-        }
-      },
-      {
-        "type": "object",
-        "title": "%config.azureAuthMethodConfigurationSection%",
-        "properties": {
-          "accounts.azure.auth.codeGrant": {
-            "type": "boolean",
-            "default": true,
-            "description": "%config.azureCodeGrantMethod%"
-          },
-          "accounts.azure.auth.deviceCode": {
-            "type": "boolean",
-            "default": false,
-            "description": "%config.azureDeviceCodeMethod%"
-          }
-        }
-      },
-      {
-        "type": "object",
-        "title": "Azure",
-        "properties": {
-          "azure.enableArcFeatures": {
-            "type": "boolean",
-            "default": false,
-            "description": "%config.enableArcFeatures%"
-          },
-          "azure.noSystemKeychain": {
-            "type": "boolean",
-            "default": false,
-            "description": "%config.noSystemKeychain%",
-            "when": "isLinux || isWeb"
-          }
-        }
-      }
-    ],
-    "account-type": [
-      {
-        "id": "microsoft",
-        "icon": {
-          "light": "./resources/light/microsoft_account_light.svg",
-          "dark": "./resources/dark/microsoft_account_dark.svg"
-        }
-      },
-      {
-        "id": "work_school",
-        "icon": {
-          "light": "./resources/light/work_school_account_light.svg",
-          "dark": "./resources/dark/work_school_account_dark.svg"
-        }
-      }
-    ],
-    "commands": [
-      {
-        "command": "accounts.clearTokenCache",
-        "title": "%accounts.clearTokenCache%",
-        "category": "Azure Accounts"
-      },
-      {
-        "command": "azure.accounts.getSubscriptions",
-        "title": "%azure.accounts.getSubscriptions.title%",
-        "category": "Azure Accounts"
-      },
-      {
-        "command": "azure.accounts.getResourceGroups",
-        "title": "%azure.accounts.getResourceGroups.title%",
-        "category": "Azure Accounts"
-      },
-      {
-        "command": "azure.resource.signin",
-        "title": "%azure.resource.signin.title%",
-        "icon": "$(add)"
-      },
-      {
-        "command": "azure.resource.refreshall",
-        "title": "%azure.resource.refreshall.title%",
-        "icon": "$(refresh)"
-      },
-      {
-        "command": "azure.resource.refresh",
-        "title": "%azure.resource.refresh.title%",
-        "icon": "$(refresh)"
-      },
-      {
-        "command": "azure.resource.selectsubscriptions",
-        "title": "%azure.resource.selectsubscriptions.title%",
-        "icon": "$(filter)"
-      },
-      {
-        "command": "azure.resource.connectsqlserver",
-        "title": "%azure.resource.connectsqlserver.title%",
-        "icon": {
-          "dark": "resources/dark/connect_to_inverse.svg",
-          "light": "resources/light/connect_to.svg"
-        }
-      },
-      {
-        "command": "azure.resource.connectsqldb",
-        "title": "%azure.resource.connectsqldb.title%",
-        "icon": {
-          "dark": "resources/dark/add_to_server_list_inverse.svg",
-          "light": "resources/light/add_to_server_list.svg"
-        }
-      }
-    ],
-    "dataExplorer": {
-      "azureResource": [
-        {
-          "id": "azureResourceExplorer",
-          "name": "%azure.resource.explorer.title%"
-        }
-      ]
-    },
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "azure.resource.signin",
-          "when": "true"
-        },
-        {
-          "command": "azure.resource.refreshall",
-          "when": "true"
-        },
-        {
-          "command": "azure.resource.selectsubscriptions",
-          "when": "false"
-        },
-        {
-          "command": "azure.resource.refresh",
-          "when": "false"
-        },
-        {
-          "command": "azure.resource.connectsqlserver",
-          "when": "false"
-        },
-        {
-          "command": "azure.accounts.getSubscriptions",
-          "when": "false"
-        },
-        {
-          "command": "azure.accounts.getResourceGroups",
-          "when": "false"
-        }
-      ],
-      "view/title": [
-        {
-          "command": "azure.resource.signin",
-          "when": "view == azureResourceExplorer",
-          "group": "navigation@1"
-        },
-        {
-          "command": "azure.resource.refreshall",
-          "when": "view == azureResourceExplorer",
-          "group": "navigation@2"
-        }
-      ],
-      "view/item/context": [
-        {
-          "command": "azure.resource.selectsubscriptions",
-          "when": "viewItem == azure.resource.itemType.account",
-          "group": "inline"
-        },
-        {
-          "command": "azure.resource.refresh",
-          "when": "viewItem =~ /^azure\\.resource\\.itemType\\.(?:account|subscription|databaseContainer|databaseServerContainer)$/",
-          "group": "inline"
-        },
-        {
-          "command": "azure.resource.connectsqlserver",
-          "when": "viewItem == azure.resource.itemType.databaseServer || viewItem == azure.resource.itemType.database || viewItem == azure.resource.itemType.sqlInstance",
-          "group": "inline"
-        }
-      ]
-    },
-    "hasAzureResourceProviders": true
-  },
-  "dependencies": {
-    "@azure/arm-resourcegraph": "^2.0.0",
-    "@azure/arm-subscriptions": "1.0.0",
-    "adal-node": "^0.2.1",
-    "axios": "^0.21.1",
-    "qs": "^6.9.1",
-    "request": "2.88.0",
-    "vscode-nls": "^4.0.0"
-  },
-  "devDependencies": {
-    "@types/keytar": "^4.4.2",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^12.11.7",
-    "@types/qs": "^6.9.1",
-    "@types/request": "^2.48.1",
-    "mocha": "^5.2.0",
-    "mocha-junit-reporter": "^1.17.0",
-    "mocha-multi-reporters": "^1.1.7",
-    "should": "^13.2.1",
-    "typemoq": "^2.1.0",
-    "vscodetestcover": "github:corivera/vscodetestcover#1.0.5"
-  },
-  "resolutions": {
-    "esprima": "^4.0.0"
-  }
+	"name": "azurecore",
+	"displayName": "%azure.displayName%",
+	"description": "%azure.description%",
+	"version": "0.1.0",
+	"publisher": "Microsoft",
+	"preview": true,
+	"engines": {
+		"vscode": "^1.30.1",
+		"azdata": "*"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"enableProposedApi": true,
+	"main": "./out/extension",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/azuredatastudio.git"
+	},
+	"contributes": {
+		"configuration": [
+			{
+				"type": "object",
+				"title": "%azure.resource.config.title%",
+				"properties": {
+					"azure.resource.config.filter": {
+						"type": "array",
+						"default": null,
+						"description": "%azure.resource.config.filter.description%"
+					}
+				}
+			},
+			{
+				"type": "object",
+				"title": "%config.azureAccountConfigurationSection%",
+				"properties": {
+					"accounts.azure.cloud.enablePublicCloud": {
+						"type": "boolean",
+						"default": true,
+						"description": "%config.enablePublicCloudDescription%"
+					},
+					"accounts.azure.cloud.enableUsGovCloud": {
+						"type": "boolean",
+						"default": false,
+						"description": "%config.enableUsGovCloudDescription%"
+					},
+					"accounts.azure.cloud.enableGermanyCloud": {
+						"type": "boolean",
+						"default": false,
+						"description": "%config.enableGermanyCloudDescription%"
+					},
+					"accounts.azure.cloud.enableChinaCloud": {
+						"type": "boolean",
+						"default": false,
+						"description": "%config.enableChinaCloudDescription%"
+					}
+				}
+			},
+			{
+				"type": "object",
+				"title": "%config.azureAuthMethodConfigurationSection%",
+				"properties": {
+					"accounts.azure.auth.codeGrant": {
+						"type": "boolean",
+						"default": true,
+						"description": "%config.azureCodeGrantMethod%"
+					},
+					"accounts.azure.auth.deviceCode": {
+						"type": "boolean",
+						"default": false,
+						"description": "%config.azureDeviceCodeMethod%"
+					}
+				}
+			},
+			{
+				"type": "object",
+				"title": "Azure",
+				"properties": {
+					"azure.enableArcFeatures": {
+						"type": "boolean",
+						"default": false,
+						"description": "%config.enableArcFeatures%"
+					},
+					"azure.noSystemKeychain": {
+						"type": "boolean",
+						"default": false,
+						"description": "%config.noSystemKeychain%",
+						"when": "isLinux || isWeb"
+					}
+				}
+			}
+		],
+		"account-type": [
+			{
+				"id": "microsoft",
+				"icon": {
+					"light": "./resources/light/microsoft_account_light.svg",
+					"dark": "./resources/dark/microsoft_account_dark.svg"
+				}
+			},
+			{
+				"id": "work_school",
+				"icon": {
+					"light": "./resources/light/work_school_account_light.svg",
+					"dark": "./resources/dark/work_school_account_dark.svg"
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "accounts.clearTokenCache",
+				"title": "%accounts.clearTokenCache%",
+				"category": "Azure Accounts"
+			},
+			{
+				"command": "azure.accounts.getSubscriptions",
+				"title": "%azure.accounts.getSubscriptions.title%",
+				"category": "Azure Accounts"
+			},
+			{
+				"command": "azure.accounts.getResourceGroups",
+				"title": "%azure.accounts.getResourceGroups.title%",
+				"category": "Azure Accounts"
+			},
+			{
+				"command": "azure.resource.signin",
+				"title": "%azure.resource.signin.title%",
+				"icon": "$(add)"
+			},
+			{
+				"command": "azure.resource.refreshall",
+				"title": "%azure.resource.refreshall.title%",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "azure.resource.refresh",
+				"title": "%azure.resource.refresh.title%",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "azure.resource.selectsubscriptions",
+				"title": "%azure.resource.selectsubscriptions.title%",
+				"icon": "$(filter)"
+			},
+			{
+				"command": "azure.resource.connectsqlserver",
+				"title": "%azure.resource.connectsqlserver.title%",
+				"icon": {
+					"dark": "resources/dark/connect_to_inverse.svg",
+					"light": "resources/light/connect_to.svg"
+				}
+			},
+			{
+				"command": "azure.resource.connectsqldb",
+				"title": "%azure.resource.connectsqldb.title%",
+				"icon": {
+					"dark": "resources/dark/add_to_server_list_inverse.svg",
+					"light": "resources/light/add_to_server_list.svg"
+				}
+			}
+		],
+		"dataExplorer": {
+			"azureResource": [
+				{
+					"id": "azureResourceExplorer",
+					"name": "%azure.resource.explorer.title%"
+				}
+			]
+		},
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "azure.resource.signin",
+					"when": "true"
+				},
+				{
+					"command": "azure.resource.refreshall",
+					"when": "true"
+				},
+				{
+					"command": "azure.resource.selectsubscriptions",
+					"when": "false"
+				},
+				{
+					"command": "azure.resource.refresh",
+					"when": "false"
+				},
+				{
+					"command": "azure.resource.connectsqlserver",
+					"when": "false"
+				},
+				{
+					"command": "azure.accounts.getSubscriptions",
+					"when": "false"
+				},
+				{
+					"command": "azure.accounts.getResourceGroups",
+					"when": "false"
+				}
+			],
+			"view/title": [
+				{
+					"command": "azure.resource.signin",
+					"when": "view == azureResourceExplorer",
+					"group": "navigation@1"
+				},
+				{
+					"command": "azure.resource.refreshall",
+					"when": "view == azureResourceExplorer",
+					"group": "navigation@2"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "azure.resource.selectsubscriptions",
+					"when": "viewItem == azure.resource.itemType.account",
+					"group": "inline"
+				},
+				{
+					"command": "azure.resource.refresh",
+					"when": "viewItem =~ /^azure\\.resource\\.itemType\\.(?:account|subscription|databaseContainer|databaseServerContainer)$/",
+					"group": "inline"
+				},
+				{
+					"command": "azure.resource.connectsqlserver",
+					"when": "viewItem == azure.resource.itemType.databaseServer || viewItem == azure.resource.itemType.database || viewItem == azure.resource.itemType.sqlInstance",
+					"group": "inline"
+				}
+			]
+		},
+		"hasAzureResourceProviders": true
+	},
+	"dependencies": {
+		"@azure/arm-resourcegraph": "^2.0.0",
+		"@azure/arm-subscriptions": "1.0.0",
+		"adal-node": "^0.2.1",
+		"axios": "^0.21.1",
+		"qs": "^6.9.1",
+		"request": "2.88.0",
+		"vscode-nls": "^4.0.0"
+	},
+	"devDependencies": {
+		"@types/keytar": "^4.4.2",
+		"@types/mocha": "^5.2.5",
+		"@types/node": "^12.11.7",
+		"@types/qs": "^6.9.1",
+		"@types/request": "^2.48.1",
+		"mocha": "^5.2.0",
+		"mocha-junit-reporter": "^1.17.0",
+		"mocha-multi-reporters": "^1.1.7",
+		"should": "^13.2.1",
+		"typemoq": "^2.1.0",
+		"vscodetestcover": "github:corivera/vscodetestcover#1.0.5"
+	},
+	"resolutions": {
+		"esprima": "^4.0.0"
+	}
 }
